@@ -252,7 +252,7 @@ export const SITE = {
         "Walking and running most days, tennis when I can find a court, and gym if I find the time.",
       span: 4,
     },
-  ] as const satisfies readonly Hobby[],
+  ] satisfies readonly Hobby[],
 
   quickFacts: [
     { label: "Location", value: "Doha, Qatar" },
