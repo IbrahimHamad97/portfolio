@@ -1,0 +1,29 @@
+/**
+ * Cloudflare Workers config — static-assets only.
+ *
+ * Why this file exists:
+ *   Cloudflare's "Workers Builds" auto-detects Next.js projects and tries to
+ *   deploy them via the OpenNext adapter, which expects `output: "standalone"`
+ *   and SSR. This portfolio is fully static (`output: "export"` in
+ *   next.config.ts), so we skip OpenNext entirely and serve the prerendered
+ *   `out/` directory as Workers Static Assets.
+ *
+ * To deploy:
+ *   npm run build && npx wrangler deploy
+ *
+ * Cloudflare dashboard settings to set on the Worker:
+ *   - Build command:  npm run build
+ *   - Deploy command: npx wrangler deploy
+ *   (The "Output Directory" field in the dashboard can be ignored — the
+ *   directory we ship is declared below in `assets.directory`.)
+ */
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "portfolio",
+  "compatibility_date": "2026-05-08",
+  "assets": {
+    "directory": "./out",
+    // Serve `out/404.html` for unknown paths — Next's static export emits it.
+    "not_found_handling": "404-page"
+  }
+}

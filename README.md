@@ -175,13 +175,31 @@ Every section uses `scroll-mt-24` so in-page anchor jumps clear the sticky navba
 
 ## Deployment
 
-Built for Vercel (zero-config), but any host that runs Next.js will work:
+This site is a fully static export (`output: "export"` in `next.config.ts`), so it can be hosted on anything that serves files. It's currently set up for **Cloudflare Workers Static Assets**.
+
+### Cloudflare Workers (current setup)
+
+The repo includes a [`wrangler.jsonc`](./wrangler.jsonc) that ships the `out/` directory as static assets — no OpenNext, no SSR runtime, just files on the edge.
+
+In the Cloudflare dashboard for the Worker, set:
+
+- **Build command:** `npm run build`
+- **Deploy command:** `npx wrangler deploy`
+
+That's it. `next build` writes the static site to `out/`, and `wrangler deploy` reads `wrangler.jsonc` and uploads it.
+
+To deploy from your machine:
 
 ```bash
-npm run build && npm run start
+npm run build
+npx wrangler deploy
 ```
 
-For Vercel: push to GitHub and import the repo at <https://vercel.com/new>.
+> Heads-up: when you connect a Next.js repo to Cloudflare, it will try to auto-configure OpenNext for SSR. Don't accept that — the committed `wrangler.jsonc` is what tells Workers this is a static project.
+
+### Anywhere else
+
+The `out/` directory after `npm run build` is plain HTML/CSS/JS. Drop it onto Cloudflare Pages, Netlify, GitHub Pages, S3, or any static host.
 
 ## Notes & follow-ups
 
