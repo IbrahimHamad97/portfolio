@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --card: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(0, 0, 0, 0.08);
 }
 
 @theme inline {
@@ -12,15 +14,43 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/*
+ * Theme strategy:
+ * - `next-themes` toggles `.dark` on the <html> element.
+ * - We set design tokens via CSS variables; Tailwind utilities consume them.
+ * This ensures the manual toggle wins over system preference.
+ */
+.dark:root {
+  --background: #07070a;
+  --foreground: #f3f4f6;
+  --card: rgba(10, 10, 14, 0.72);
+  --card-border: rgba(255, 255, 255, 0.1);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
 }
+
+/* Consistent focus style across browsers */
+:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--foreground) 30%, transparent);
+  outline-offset: 2px;
+}
+
+/* Subtle, "fancy" background without images. */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+::selection {
+  background: color-mix(in oklab, var(--foreground) 18%, transparent);
+}
+
