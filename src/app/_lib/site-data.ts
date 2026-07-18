@@ -179,6 +179,13 @@ export const SITE = {
       liveUrl: "https://www.gorafeeq.com/en/home",
     },
     {
+      title: "Food Blog",
+      description: "Food blog built with Angular and Node.js.",
+      tag: "Full-stack",
+      liveUrl: "https://brhos-food-blog.netlify.app",
+      repoUrl: "https://github.com/IbrahimHamad97/food-blog-server",
+    },
+    {
       title: "Vacation Planner",
       description:
         "Full-stack vacation planner app built with Next.js and FastAPI.",
