@@ -269,4 +269,11 @@ export const SITE = {
 
   /** Section blurbs */
   projectsIntro: "A few selected repositories from my GitHub.",
-} as const;
+};
+/**
+ * Note: do not add `as const` on `SITE` itself.
+ * It deep-narrows array items into per-item literal types, so optional
+ * fields like Hobby.details / Project.repoUrl disappear from items that
+ * omit them — and TypeScript then errors on `h.details` / `p.repoUrl`.
+ * Per-array `satisfies …[]` is enough for type-checking.
+ */
